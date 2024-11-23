@@ -1,7 +1,6 @@
 let form = document.getElementById("form");
 let ul = document.getElementById("ul");
 let input = document.getElementById("input");
-let button = document.getElementById("button");
 
 function updateDateTime() {
   let date = new Date();
@@ -12,10 +11,12 @@ function updateDateTime() {
 updateDateTime();
 setInterval(updateDateTime, 1000);
 
-function Addli(task) {
-  let lis = JSON.parse(localStorage.getItem("tasks")) || [];
-  lis.push(task);
-  localStorage.setItem("tasks", JSON.stringify(lis));
+function addTaskToList(task) {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  tasks.push(task);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 
   let li = document.createElement("li");
 
@@ -62,14 +63,28 @@ function Addli(task) {
 
   removeButton.addEventListener("click", () => {
     li.remove();
+    removeTaskFromStorage(task);
   });
+}
+
+function removeTaskFromStorage(task) {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks = tasks.filter((t) => t !== task);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function loadTasks() {
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  tasks.forEach((task) => addTaskToList(task));
 }
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   let task = input.value.trim();
   if (task) {
-    Addli(task);
+    addTaskToList(task);
     input.value = "";
   }
 });
+
+document.addEventListener("DOMContentLoaded", loadTasks);
