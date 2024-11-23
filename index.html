@@ -16,9 +16,12 @@
     <div class="container">
       <h1 class="heading">Todo</h1>
       <div class="list_box">
-        <img src="./images/Rectangle 2.svg" alt="icon" />
+        <div class="image_container">
+          <img src="./images/Rectangle 2.svg" alt="icon" />
+          <div id="date_time" class="date_time"></div>
+        </div>
 
-        <form class="form">
+        <form class="form" id="form">
           <div class="input_container">
             <div class="check_box">
               <img
@@ -29,14 +32,14 @@
             </div>
             <input id="input" class="input" type="text" placeholder="Note" />
           </div>
-          <button class="button" type="submit">
+          <button type="submit" class="button" id="button">
             <img src="./images/Vector.svg" alt="" />
           </button>
         </form>
-        <div id="output-container"></div>
+
+        <ul id="ul"></ul>
       </div>
     </div>
-
     <script src="./script.js"></script>
   </body>
 </html>
